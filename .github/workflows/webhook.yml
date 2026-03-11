@@ -1,0 +1,16 @@
+name: Gatilho Externo via Webhook
+
+on:
+  repository_dispatch:
+    # O workflow só vai rodar se o "event_type" enviado for este:
+    types: [meu_evento_especifico]
+
+jobs:
+  processar_dados:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Receber Parâmetros
+        run: |
+          echo "O evento disparado foi: ${{ github.event.action }}"
+          echo "O parâmetro enviado foi: ${{ github.event.client_payload.alvo }}"
+          echo "Token de acesso: ${{ github.event.client_payload.token_id }}"
